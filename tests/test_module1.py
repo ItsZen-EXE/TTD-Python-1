@@ -1,5 +1,5 @@
 import unittest
-from src.Module1 import Drink, Order  # import the drink and order classes
+from src.Module1 import Drink, Food, Order  # import the drink and order classes
 
 class TestDrink(unittest.TestCase):
 
@@ -33,6 +33,47 @@ class TestDrink(unittest.TestCase):
         # Test setting an invalid base (not in the valid base list). This should raise an error.
         with self.assertRaises(ValueError):
             self.drink.set_base('invalid_base')
+
+
+class TestFood(unittest.TestCase):
+
+    def setUp(self): #setUp runs before each test!
+        # Create food before each test
+        self.hotdog = Food("hotdog")
+        self.ice_cream = Food("ice cream")
+    
+    # Test for get_base_price method to ensure it returns correctly
+    def test_get_base_price(self):
+        self.assertEqual(self.hotdog.get_base_price(), 2.30)
+        self.assertEqual(self.ice_cream.get_base_price(), 3.00)
+
+    # Test for get_type method to ensure it returns correctly
+    def test_get_type(self):
+        self.assertEqual(self.hotdog.get_type(), "hotdog")
+        self.assertEqual(self.ice_cream.get_type(), "ice cream")
+
+    # Test for add_topping method with valid topping
+    def test_add_topping(self):
+        self.ice_cream.add_topping("cherry")
+        self.assertEqual(self.ice_cream.get_num_toppings(), 1)
+    
+    # Test for add_topping method with invalid topping
+    def test_add_invalid_topping(self):
+        with self.assertRaises(ValueError):
+            self.hotdog.add_topping("invalid_topping")
+    
+    # Test for get_num_toppings method
+    def test_get_num_toppings(self):
+        self.ice_cream.add_topping("whipped cream")
+        self.ice_cream.add_topping("caramel sauce")
+        self.assertEqual(self.ice_cream.get_num_toppings(), 2)
+    
+    # Test for get_total_price method
+    def test_get_total_price(self):
+        self.hotdog.add_topping("chili")
+        self.hotdog.add_topping("ketchup")
+        self.assertEqual(self.hotdog.get_total_price(), 2.90)  # 2.30 + 0.60 + 0.00
+
 
 class TestOrder(unittest.TestCase):
 
