@@ -1,6 +1,8 @@
 import unittest
-from src.Module1 import Drink, Food, Order  # import the drink and order classes
-
+# import the drink and order classes
+from src.drink import Drink
+from src.food import Food
+from src.order import Order
 class TestDrink(unittest.TestCase):
 
     def setUp(self): #setUp runs before each test!
